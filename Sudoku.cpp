@@ -44,3 +44,13 @@ bool Sudoku::testValeur(std::array<std::array<int, N>, N> grid, int valeur, int 
 void Sudoku::resolve() {
 
 }
+
+std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku) {
+    for (int i = 0; i < Sudoku::N; i++) {
+        for (int j = 0; j < Sudoku::N; j++) {
+            os << sudoku.grid[i][j] << " ";
+        }
+        os << std::endl;
+    }
+    return os;
+};
