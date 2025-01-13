@@ -7,7 +7,6 @@ void printTestResult(const std::string& testName, bool result) {
 
 int main() {
     Sudoku sudoku;
-    sudoku.generateGrid();
 
     // Test cases for testLigne
     printTestResult("testLigne (should be true)", sudoku.testLigne(1, 0));
