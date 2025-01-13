@@ -3,7 +3,7 @@
 
 Sudoku::Sudoku() {}
 
-bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y) {
+bool Sudoku::testLigne(int valeur, int y) {
     for (int i = 0; i < N; i++) {
         if (grid[i][y] == valeur) {
             return false;
