@@ -2,7 +2,7 @@
 #include <array>
 #include <random>
 #include <time.h>
-
+#include <iostream>
 class Sudoku {
 private:
     static const int N = 9;
@@ -21,5 +21,7 @@ public:
     bool testValeur(int valeur, int x, int y);
 
     void resolve();
+    friend std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku);
+    };
 
-};
+    
