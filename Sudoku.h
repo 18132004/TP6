@@ -3,7 +3,7 @@
 #include <array>
 #include <random>
 #include <time.h>
-
+#include <iostream>
 class Sudoku {
 private:
     static const int N = 9;
@@ -19,6 +19,8 @@ public:
 
     std::vector<int> getListValibNb(int posX, int posY);
     void resolve();
+    friend std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku);
+    };
 
     void display();
 

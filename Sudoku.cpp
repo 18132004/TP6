@@ -124,11 +124,12 @@ void Sudoku::resolve() {
     }
 }
 
-void Sudoku::display() {
-    for (int y = 0; y < N; y++) {
-        for (int x = 0; x < N; x++) {
-            std::cout << grid[x][y] << " ";
+std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku) {
+    for (int i = 0; i < Sudoku::N; i++) {
+        for (int j = 0; j < Sudoku::N; j++) {
+            os << sudoku.grid[i][j] << " ";
         }
-        std::cout << "\n";
+        os << std::endl;
     }
-}
+    return os;
+};
