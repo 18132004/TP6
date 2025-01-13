@@ -16,7 +16,7 @@ void Sudoku::generateGrid() {
 
 }
 
-bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y) {
+bool Sudoku::testLigne(int valeur, int y) {
     for (int i = 0; i < N; i++) {
         if (grid[i][y] == valeur) {
             return false;
@@ -25,7 +25,7 @@ bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y
     return true;
 }
 
-bool Sudoku::testColonne(std::array<std::array<int, N>, N> grid, int valeur, int x) {
+bool Sudoku::testColonne(int valeur, int x) {
     for (int i = 0; i < N; i++) {
         if (grid[i][x] == valeur) {
             return false;
@@ -34,7 +34,7 @@ bool Sudoku::testColonne(std::array<std::array<int, N>, N> grid, int valeur, int
     return true;
 }
 
-bool Sudoku::testCarre(std::array<std::array<int, N>, N> grid, int valeur, int x, int y) {
+bool Sudoku::testCarre(int valeur, int x, int y) {
     int tailleCarre = sqrt(N);
     // Trouver les coordonnées de départ du carré
     int x0 = x/tailleCarre * tailleCarre;
@@ -50,6 +50,6 @@ bool Sudoku::testCarre(std::array<std::array<int, N>, N> grid, int valeur, int x
     return true;
 }
 
-bool Sudoku::testValeur(std::array<std::array<int, N>, N> grid, int valeur, int x, int y) {
-    return testLigne(grid, valeur, y) && testColonne(grid, valeur, x) && testCarre(grid, valeur, x, y);
+bool Sudoku::testValeur(int valeur, int x, int y) {
+    return testLigne(valeur, y) && testColonne(valeur, x) && testCarre(valeur, x, y);
 }
