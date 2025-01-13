@@ -1,9 +1,8 @@
 #include "Sudoku.h"
-#include <cmath>
 
 Sudoku::Sudoku() {}
 
-bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y) {
+bool Sudoku::testLigne(int valeur, int y) {
     for (int i = 0; i < N; i++) {
         if (grid[i][y] == valeur) {
             return false;
@@ -12,7 +11,7 @@ bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y
     return true;
 }
 
-bool Sudoku::testColonne(std::array<std::array<int, N>, N> grid, int valeur, int x) {
+bool Sudoku::testColonne(int valeur, int x) {
     for (int i = 0; i < N; i++) {
         if (grid[i][x] == valeur) {
             return false;
@@ -21,7 +20,7 @@ bool Sudoku::testColonne(std::array<std::array<int, N>, N> grid, int valeur, int
     return true;
 }
 
-bool Sudoku::testCarre(std::array<std::array<int, N>, N> grid, int valeur, int x, int y) {
+bool Sudoku::testCarre(int valeur, int x, int y) {
     int tailleCarre = sqrt(N);
     // Trouver les coordonnées de départ du carré
     int x0 = x/tailleCarre * tailleCarre;
@@ -37,10 +36,99 @@ bool Sudoku::testCarre(std::array<std::array<int, N>, N> grid, int valeur, int x
     return true;
 }
 
-bool Sudoku::testValeur(std::array<std::array<int, N>, N> grid, int valeur, int x, int y) {
-    return testLigne(grid, valeur, y) && testColonne(grid, valeur, x) && testCarre(grid, valeur, x, y);
+bool Sudoku::testValeur(int valeur, int x, int y) {
+    return testLigne(valeur, y) && testColonne(valeur, x) && testCarre(valeur, x, y);
+}
+
+std::vector<int> Sudoku::getListValibNb(int posX, int posY) {
+    std::vector<int> listValidNb;
+
+    // Tableau pour suivre les numéros déjà utilisés (1 à N)
+    std::vector<bool> used(N + 1, false);
+
+    // Vérifier les nombres présents dans la ligne
+    for (int x = 0; x < N; ++x) {
+        if (grid[x][posY] != 0) {
+            used[grid[x][posY]] = true;
+        }
+    }
+
+    // Vérifier les nombres présents dans la colonne
+    for (int y = 0; y < N; ++y) {
+        if (grid[posX][y] != 0) {
+            used[grid[posX][y]] = true;
+        }
+    }
+
+    // Vérifier les nombres présents dans la mini-grille
+    int squareSize = static_cast<int>(std::sqrt(N)); // Taille d'un sous-carré
+    int startX = (posX / squareSize) * squareSize;
+    int startY = (posY / squareSize) * squareSize;
+
+    for (int x = startX; x < startX + squareSize; ++x) {
+        for (int y = startY; y < startY + squareSize; ++y) {
+            if (grid[x][y] != 0) {
+                used[grid[x][y]] = true;
+            }
+        }
+    }
+
+    // Ajouter les numéros valides à la liste
+    for (int num = 1; num <= N; ++num) {
+        if (!used[num]) {
+            listValidNb.push_back(num);
+        }
+    }
+
+    return listValidNb;
 }
 
 void Sudoku::resolve() {
+    int x = 0;
+    int y = 0;
+    while (y < N) {
+        if (grid[x][y] == 0) {
+            std::vector<int> listValidNb = getListValibNb(x, y);
+            // Si la liste est vide, on retourne en arrière
+            if (listValidNb.empty()) {
+                if (x == 0) {
+                    x = N - 1;
+                    y--;
+                }
+                else {
+                    x--;
+                }
+            }
+            // Si oui, on place un nombre (aléatoire parmi la liste)
+            else {
+                grid[x][y] = listValidNb[rand() % listValidNb.size()];
+                if (x == N - 1) {
+                    x = 0;
+                    y++;
+                }
+                else {
+                    x++;
+                }
+                display();
+            }
+        }
+        else {
+            if (x == N - 1) {
+                x = 0;
+                y++;
+            }
+            else {
+                x++;
+            }
+        }
+    }
+}
 
+void Sudoku::display() {
+    for (int y = 0; y < N; y++) {
+        for (int x = 0; x < N; x++) {
+            std::cout << grid[x][y] << " ";
+        }
+        std::cout << "\n";
+    }
 }
