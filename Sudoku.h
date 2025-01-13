@@ -18,5 +18,6 @@ public:
     bool testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y);
     bool testColonne(std::array<std::array<int, N>, N> grid, int valeur, int x);
     bool testCarre(std::array<std::array<int, N>, N> grid, int valeur, int x, int y);
+    bool testValeur(std::array<std::array<int, N>, N> grid, int valeur, int x, int y);
 
 };
