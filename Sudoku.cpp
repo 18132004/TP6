@@ -3,20 +3,7 @@
 
 Sudoku::Sudoku() {}
 
-void Sudoku::permuteCase(int pos1, int pos2) {
-    int temp = grid[pos1];
-    grid[pos1] = grid[pos2];
-    grid[pos2] = temp;
-}
-
-void Sudoku::generateGrid() {
-    for (int i = 0; i < N; i++) {
-        grid[i] = i % N;
-    }
-
-}
-
-bool Sudoku::testLigne(int valeur, int y) {
+bool Sudoku::testLigne(std::array<std::array<int, N>, N> grid, int valeur, int y) {
     for (int i = 0; i < N; i++) {
         if (grid[i][y] == valeur) {
             return false;
@@ -52,4 +39,8 @@ bool Sudoku::testCarre(int valeur, int x, int y) {
 
 bool Sudoku::testValeur(int valeur, int x, int y) {
     return testLigne(valeur, y) && testColonne(valeur, x) && testCarre(valeur, x, y);
+}
+
+void Sudoku::resolve() {
+
 }

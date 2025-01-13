@@ -20,4 +20,6 @@ public:
     bool testCarre(int valeur, int x, int y);
     bool testValeur(int valeur, int x, int y);
 
+    void resolve();
+
 };
