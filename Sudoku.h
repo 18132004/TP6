@@ -1,13 +1,15 @@
 #pragma once
-#include <vector>
+#include <array>
 
 class Sudoku {
 private:
-    int N;
-    std::vector<int> grid;
+    static const int N = 9;
+    std::array<int, N> grid;
+
+    void permuteCase(int pos1, int pos2);
 
 public:
-    Sudoku(int _N);
+    Sudoku();
 
     void generateGrid();
 
