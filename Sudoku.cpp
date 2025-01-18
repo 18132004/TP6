@@ -45,6 +45,7 @@ std::vector<int> Sudoku::getListValibNb(int posX, int posY) {
 
     // Tableau pour suivre les numéros déjà utilisés (1 à N)
     std::vector<bool> used(N + 1, false);
+    int a = 0;
 
     // Vérifier les nombres présents dans la ligne
     for (int x = 0; x < N; ++x) {
